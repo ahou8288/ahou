@@ -5,6 +5,9 @@
 #include "snapshot.h"
 
 void getCommand(void);
+void run(char* commandName, char* userCommand);
+void BYE(void);
+
 
 entry* entry_head = NULL;
 entry* entry_tail = NULL;
@@ -23,15 +26,19 @@ void getCommand(void){
 	char * pch;
 	pch = strtok (userCommand," ");
 	
-	while (pch != NULL)
+	if (pch != NULL)
 	{
-		printf ("%s\n",pch);
-		pch = strtok (NULL, " ");
+		//At this point send user command to get processed at run(pch,usercommand)
+		run(pch,userCommand);
 	}
-	char command[MAX_LINE_LENGTH];
 	
-	//Split string
-	//send first line to function control
-	//send arguments also
-	
+}
+
+void run(char* commandName, char* userCommand){
+	void (*byePtr)()=BYE;
+	(*byePtr)();
+}
+
+void BYE(){
+	printf("Bye\n");
 }
