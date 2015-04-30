@@ -4,6 +4,9 @@
 
 #include "snapshot.h"
 
+#define NUM_FUNCTIONS 1
+
+//Function Definitions
 void getCommand(void);
 void run(char* commandName, char* userCommand);
 void BYE(char* args);
@@ -38,19 +41,34 @@ void getCommand(void){
 	
 }
 
-void run(char* commandName, char* args){
+void run(char* commandName, char* arguments){
 	//Create a list of function names and function pointers
 	//Run the function with the arguments
-
-	char* functionName="BYE";
-	void (*byePtr)(char*)=BYE;
+	
+	struct functionList{
+		char* name;
+		void (*ptr)();
+		int args;
+	};
+	
+	struct functionList myFnc[NUM_FUNCTIONS];
+	
+	myFnc[0].name="BYE";
+	myFnc[0].ptr=&BYE;
+	myFnc[0].args=0;
+	
 	printf("%s\n",commandName);
-	if (strcmp(commandName,functionName)==0){
-		(*byePtr)(args);
+	for (int i=0; i<NUM_FUNCTIONS; i++){
+		if (strcmp(commandName,myFnc[i].name)==0){
+			if (myFnc[i].args>0){
+				(myFnc[0].ptr)(arguments);//FIX
+			} else {
+				(myFnc[0].ptr)();
+			}
+		}
 	}
 }
 
-void BYE(char* args){
-	printf("Bye function arguments :%s\n",args);
+void BYE(){
 	printf("Bye function has been run\n");
 }
