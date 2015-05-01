@@ -14,6 +14,9 @@ void BYE(char* args);
 void SET(char* args);
 char* strLower(char* inString);
 
+//Snapshot 1
+struct snapshot snapPtr;
+
 entry* entry_head = NULL;
 entry* entry_tail = NULL;
 
@@ -21,7 +24,7 @@ snapshot* snapshot_head = NULL;
 snapshot* snapshot_tail = NULL;
 
 int main(void) {
-	getCommand();
+	while (1){getCommand();}
 	return 0;
 }
 
@@ -92,6 +95,21 @@ void SET(char* args){
 	char command[MAX_LINE_LENGTH]; //not used
 	sscanf(args,"%s %s %d",command,key,&value);
 	printf("set command has received key of %s, and value of %d.\n",key,value);
+	
+	//Assums only one set done for each snapshot.
+	struct value valPtr;
+	valPtr.next=0;
+	valPtr.prev=0;
+	valPtr.value=value;
 
+	struct entry entryPtr;
+	entryPtr.values=&valPtr;
+	entryPtr.next=0;
+	entryPtr.prev=0;
+	memcpy(&key,&entryPtr.key,MAX_KEY_LENGTH);
 
+	snapPtr.entries=&entryPtr;
+	snapPtr.next=0;
+	snapPtr.prev=0;
+	snapPtr.id=1;
 }
