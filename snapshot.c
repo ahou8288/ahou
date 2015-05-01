@@ -34,6 +34,9 @@ void getCommand(void){
 	char userCommand[MAX_LINE_LENGTH];
 	fgets(userCommand,MAX_LINE_LENGTH,stdin);
 	
+	//Remove trailing newline
+	strtok(userCommand,"\n");
+
 	//Duplicate string because original string is modified.
 	char args[MAX_LINE_LENGTH];
 	strcpy(args,userCommand);
@@ -70,8 +73,9 @@ void run(char* commandName, char* arguments){
         myFnc[2].ptr=&GET;
         myFnc[2].args=1;
 
-	printf("Command name is %s\n",strLower(commandName));
+	// printf("Command name is %s\n",strLower(commandName));
 	for (int i=0; i<NUM_FUNCTIONS; i++){
+		// printf("%s --- %s\n",commandName,myFnc[i].name);
 		if (strcmp(strLower(commandName),myFnc[i].name)==0){
 			if (myFnc[i].args>0){
 				(myFnc[i].ptr)(arguments);
@@ -90,7 +94,8 @@ char* strLower(char* inString){
 }
 
 void BYE(){
-	printf("Bye function has been run\n");
+	printf("bye\n");
+	exit(0);
 }
 
 void SET(char* args){
@@ -130,5 +135,3 @@ void GET(char* args){
 		printf("[]\n");
 	}
 }
-
-
