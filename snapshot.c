@@ -33,6 +33,7 @@ int main(void) {
 
 void getCommand(void){
 	//Get user input
+	printf("> ");
 	char userCommand[MAX_LINE_LENGTH];
 	fgets(userCommand,MAX_LINE_LENGTH,stdin);
 	
@@ -158,19 +159,23 @@ void GET(char* args){
 }
 
 void append(char* args){
+	printf("test");
 	char key[MAX_KEY_LENGTH];
         int value;
         char command[MAX_LINE_LENGTH]; //not used
         printf("Args to append function are %s\n",args);
-	sscanf(args,"%s %s %d",command,key,&value);
+	printf("test");
+sscanf(args,"%s %s %d",command,key,&value);
+printf("test");
 
-	printf("test 2\n");
+	struct value newVal;
+	newVal.value=value;
 	//Reach the end of the list
 	struct value ptr;
-	ptr.prev=0;
-	ptr.next=snapPtr.entries->values->next;
-	
-	printf("test\n");
+printf("test");	
+ptr.next=snapPtr.entries->values->next;
+	ptr.prev=ptr.next;
+	printf("test");
 
 	//printf("%d\n",ptr.next);
 	while (ptr.next!=0){
@@ -179,12 +184,10 @@ void append(char* args){
 		ptr.next=ptr.next->next;
 	}
 	
-	//tme="append";
-	//        myFnc[3].ptr=&append;
-	//                myFnc[3].args=1;
-	//                mpVal->next=&newVal;
-	//newVal.prev=tmpVal;
-	//newVal.next=0;
+	printf("test");
+	ptr.prev->next=&newVal;
+        newVal.prev=ptr.prev;
+	newVal.next=0;
 }
 
 void help(void){
