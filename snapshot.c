@@ -5,13 +5,14 @@
 
 #include "snapshot.h"
 
-#define NUM_FUNCTIONS 2
+#define NUM_FUNCTIONS 3
 
 //Function Definitions
 void getCommand(void);
 void run(char* commandName, char* userCommand);
 void BYE(char* args);
 void SET(char* args);
+void GET(char* args);
 char* strLower(char* inString);
 
 //Snapshot 1
@@ -65,6 +66,9 @@ void run(char* commandName, char* arguments){
 	myFnc[1].name="set";
         myFnc[1].ptr=&SET;
         myFnc[1].args=1;
+        myFnc[2].name="get";
+        myFnc[2].ptr=&GET;
+        myFnc[2].args=1;
 
 	printf("Command name is %s\n",strLower(commandName));
 	for (int i=0; i<NUM_FUNCTIONS; i++){
@@ -74,7 +78,7 @@ void run(char* commandName, char* arguments){
 			} else {
 				(myFnc[i].ptr)();
 			}
-		}else{printf("here");}
+		}
 	}
 }
 
@@ -112,4 +116,19 @@ void SET(char* args){
 	snapPtr.next=0;
 	snapPtr.prev=0;
 	snapPtr.id=1;
+
+	printf("Value put is %d.",snapPtr.entries->values->value);
 }
+
+void GET(char* args){
+	char key[MAX_LINE_LENGTH];
+	char command[MAX_LINE_LENGTH];
+	sscanf("%s %s",command,key);
+	if (&snapPtr.entries->values!=0){ //Where key = key!
+		printf("[%d]\n",snapPtr.entries->values->value);
+	}else{
+		printf("[]\n");
+	}
+}
+
+
