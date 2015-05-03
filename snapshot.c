@@ -121,6 +121,8 @@ void SET(char* args){
 	valPtr.prev=0;
 	valPtr.value=value;
 
+	printf("%p/n",valPtr.next);
+
 	struct entry entryPtr;
 	entryPtr.values=&valPtr;
 	entryPtr.next=0;
@@ -136,23 +138,25 @@ void SET(char* args){
 }
 
 void GET(char* args){
-	char key[MAX_LINE_LENGTH];
+	char key[MAX_KEY_LENGTH];
 	char command[MAX_LINE_LENGTH];
 	sscanf("%s %s",command,key);
 	if (&snapPtr.entries->values!=0){ //Where key = key!
-		printf("[");
-
-		//Traverse the list and print each value
+	//Traverse the list and print each value
 		struct value ptr;
-		ptr.next=snapPtr.entries->values->next;
-		ptr.prev=0;
-		while (ptr.next!=0){
-			printf("%d ",ptr.value);
-	                ptr.prev=ptr.next;
-        	        ptr.next=ptr.next->next;
-		}
-		printf("]\n");
-		//printf("[%d]\n",snapPtr.entries->values->value);
+		ptr=*snapPtr.entries->values;
+		printf("%d\n",ptr.value);
+		//ptr.next=snapPtr.entries->values->next;
+		//ptr.prev=0;
+		//ptr.value=(*ptr.next).value;
+		//printf("%p\n",ptr.next);
+		////while (ptr.next!=NULL){
+		//	printf("%d ",ptr.value);
+		//	printf("%p\n",(*ptr.next).next);
+		//	//ptr.prev=ptr.next;
+		//	//ptr.next=(*ptr.next).next;
+		////}
+	//printf("[%d]\n",snapPtr.entries->values->value);
 	}else{
 		printf("[]\n");
 	}
